@@ -1,0 +1,447 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="generator" content="pandoc">
+<link rel="shortcut icon" href="survey_files/figure-html/icono.png" />
+
+
+<title>MINING STACK OVERFLOW IN SPANISH FOR QUESTIONS ASKED BY ECUADORIAN DEVELOPERS</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="site_libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet">
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet">
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type="text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 54px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+
+.section h2 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h3 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h4 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h5 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+.section h6 {
+  padding-top: 59px;
+  margin-top: -59px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">PROJECT ELIAS</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+<!-- En caso de quere incluir home y otra sección, cambiar el index
+      <ul class="nav navbar-nav">
+        <li>
+           <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="survey.html">Resultados Encuestas</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+
+      </ul> -->
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Encuesta acerca de los usabilidad y aceptación de las tecnologías de gestión de tareas</h1>
+
+</div>
+
+
+<style>
+body {
+text-align: justify}
+</style>
+<p>
+  Esta encuesta fue diseñada por Villavicencio López Adamaris con el objetivo de recopilar información acerca del uso de aplicaciones de recordatorio para mejorar la productividad, que servirá para el proyecto de grado: Desarrollo de un asistente para organizar recordatorios diarios por medio de un asistente de voz.
+</p>
+<p>
+  Su participación es voluntaria. En caso de aceptar, se le pedirá responder una serie de preguntas de sus experiencias relacionadas con el tema ya antes mencionado.
+Los resultados de esta encuesta serán incluidos en la documentación del proyecto.
+Le agradecemos de antemano su participación en este estudio.
+</p>
+<div id="pregunta2" class="section level2">
+<h2>P1. ¿Con qué frecuencia utiliza aplicaciones de recordatorio para gestionar tareas diarias? <a name="p2"></a></h2>
+<p>Ejemplo de aplicación: Google Keep, Todoist, Apple Reminders, Microsoft To Do, Any.do, Wunderlist o TickTick</p>
+<p><b>Tabla</b></p>
+<p><img src="survey_files/figure-html/T1.png" width="800"></p>
+<p><b>Gráfico</b></p>
+<p><img src="survey_files/figure-html/G1.png" width="800"></p>
+<p><b>Análisis</b></p>
+<P>Considerando los resultados mostrados, se puede afirmar que los encuestados no poseen una cultura asociada al uso de aplicaciones para la gestión de tareas diarias. Esto se refleja en el 58,6% de las encuestas, ya que seleccionaron opciones relacionadas con el no uso de aplicaciones (Nunca y rara vez). Esto proporciona un indicio positivo para la aceptación del proyecto. Estos datos se corroboran, dado que solo uno de los encuestados indicó que siempre hace uso de aplicaciones para la gestión de sus tareas.</P>
+</div>
+<div id="pregunta3" class="section level2">
+<h2>P2. ¿Considera que las aplicaciones de recordatorio son efectivas para recordar sus tareas? <a name="p3"></a></h2>
+<p><b>Tabla</b></p>
+<p><img src="survey_files/figure-html/T2.png" width="800"></p>
+<p><b>Gráfico</b></p>
+<p><img src="survey_files/figure-html/G2.png" width="800"></p>
+<p><b>Análisis</b></p>
+<p>Alrededor del 64% de los encuestados muestran tendencia a reconocer los beneficios del uso de aplicaciones para la gestión de tareas, como se refleja en el reconocimiento de la eficacia de las aplicaciones de recordatorio. Esto contrasta con la pregunta 1. Otro punto por destacar es que solo un 4% indicó que las aplicaciones de manejo de recordatorio les parecen ineficaces, lo cual puede deberse a malas experiencias asociadas al uso de estas.</p>
+</div>
+<div id="pregunta4" class="section level2">
+<h2>P3.  ¿Cuán fácil le resulta utilizar las aplicaciones de recordatorio?  <a name="p4"></a></h2>
+<p><b>Tabla</b></p>
+<p><img src="survey_files/figure-html/T3.png" width="800"></p>
+<p><b>Gráfico</b></p>
+<p><img src="survey_files/figure-html/G3.png" width="800"></p>
+<p><b>Análisis</b></p>
+<p>
+  Es importante señalar que para el 4% de los encuestados, el uso de aplicaciones de recordatorios no resulta complicado, lo cual es un indicador positivo para la aceptación y adopción del proyecto de aplicación en desarrollo. Este bajo porcentaje sugiere una relativa facilidad de uso, lo cual es crucial para la aceptación general del producto. Adicionalmente, destaca que un 60% de los encuestados manifiesta familiaridad con el uso de aplicaciones. Esta familiaridad puede considerarse como una ventaja, ya que indica que la mayoría de los participantes están acostumbrados a interactuar con este tipo de tecnología. 
+</p>
+</div>
+<div id="pregunta5" class="section level2">
+<h2>P4. ¿Prefiere recordatorios por voz o por notificaciones escritas? <a name="p5"></a></h2>
+<p><b>Tabla</b></p>
+<p><img src="survey_files/figure-html/T4.png" width="800"></p>
+<p><b>Gráfico</b></p>
+<p><img src="survey_files/figure-html/G4.png" width="800"></p>
+<p><b>Análisis</b></p>
+<p>
+  Considerando los datos obtenidos, se puede indicar que la tendencia (42,7%) es el uso de recordatorios a través de comandos de voz. Esto es un aporte relevante para el desarrollo de la aplicación, permitiendo orientar el desarrollo al procesamiento natural del lenguaje y a la tabulación de voz. Aunque no hay que dejar de lado a aquellos que siguen prefiriendo las notificaciones escritas, este segmento está orientado a lo clásico y no hay que descuidarlo. Por ello, se debe buscar un punto intermedio en el desarrollo.
+</p>
+</div>
+<div id="pregunta6" class="section level2">
+<h2>P5.  ¿Qué tan crucial considera la sincronización entre dispositivos para el uso de estas aplicaciones?<a name="p6"></a></h2>
+<p><b>Tabla</b></p>
+<p><img src="survey_files/figure-html/T5.png" width="800"></p>
+<p><b>Gráfico</b></p>
+<p><img src="survey_files/figure-html/G5.png" width="800"></p>
+<p><b>Análisis</b></p>
+<p>
+  Para esta pregunta, es importante destacar que el 40% mantiene una postura neutral ante la interrogante. Este porcentaje puede deberse a la falta de conocimiento acerca de la sincronización entre dispositivos, ya que es un tema en el cual se evidencia desconocimiento. Además, otro 40% reconoce la importancia de la sincronización entre aplicaciones y dispositivos, lo cual abre la aceptación de otras herramientas vinculadas a la gestión de recordatorios.
+</p>
+</div>
+<div id="pregunta7" class="section level2">
+<h2>P6. ¿Qué tan importante es para usted la personalización de recordatorios (etiquetas, prioridades, etc.)?<a name="p7"></a></h2>
+<p><b>Tabla</b></p>
+<p><img src="survey_files/figure-html/T6.png" width="800"></p>
+<p><b>Gráfico</b></p>
+<p><img src="survey_files/figure-html/G6.png" width="800"></p>
+<p><b>Análisis</b></p>
+<p>
+  La mayoría de los encuestados, reflejado en un 65.3%, ha afirmado su opinión acerca de la relevancia de permitirle personalizar los elementos (funcionales y visuales) de sus recordatorios. Esto proporciona una visión específica sobre las funcionalidades a incluir en la aplicación, permitiendo al usuario configurar sus recordatorios según sus preferencias. Además, esto asegura una experiencia personalizada y adaptada a las necesidades individuales de cada usuario.
+</p>
+</div>
+<div id="pregunta9" class="section level2">
+<h2>P7. ¿Qué nuevas funcionalidades le gustaría ver en las aplicaciones de recordatorio?<a name="p9"></a></h2>
+<p><b>Tabla</b></p>
+<p><img src="survey_files/figure-html/T7.png" width="800"></p>
+<p><b>Gráfico</b></p>
+<p><img src="survey_files/figure-html/G7.png" width="800"></p>
+<p><b>Análisis</b></p>
+<p>
+  Los encuestados han indicado que sus preferencias de funcionalidades se basan en: notificaciones personalizadas (54.7%), recordatorio por voz (56%), y análisis de productividad (40%). Las notificaciones personalizadas se corroboran con los datos obtenidos en la pregunta 6; mientras que los recordatorios por voz se evidenciaron en la pregunta 4. Considerando esto, se puede marcar una clara tendencia a las funcionalidades a desarrollar. El análisis de productividad sería un elemento interesante por integrar, más aun considerando la sincronización de dispositivos.
+</p>
+</div>
+<div id="pregunta12" class="section level2">
+<h2>P8. ¿Confía en la capacidad de las aplicaciones actuales para mejorar su productividad?<a name="p12"></a></h2>
+<p><b>Tabla</b></p>
+<p><img src="survey_files/figure-html/T8.png" width="800"></p>
+<p><b>Gráfico</b></p>
+<p><img src="survey_files/figure-html/G8.png" width="800"></p>
+<p><b>Análisis</b></p>
+<p>
+  La aceptación de las aplicaciones como medios para aumentar la productividad se evidencia en el 44% de los encuestados, frente al 25.6% que ha optado por opciones relacionadas con la poca confianza en el uso de aplicaciones para esta finalidad. La aceptación obtenida es esencial para el desarrollo de la aplicación, ya que se puede palpar la creciente necesidad de herramientas que contribuyan a mejorar la eficiencia y organización personal. La demanda reflejada respalda la relevancia de continuar desarrollando aplicaciones que satisfagan estas expectativas del usuario moderno.
+</p>
+</div>
+<div id="pregunta14" class="section level2">
+<h2>P9. ¿Cómo calificaría su satisfacción general con las aplicaciones de recordatorio utilizadas?<a name="p14"></a></h2>
+<p><b>Tabla</b></p>
+<p><img src="survey_files/figure-html/T9.png" width="800"></p>
+<p><b>Gráfico</b></p>
+<p><img src="survey_files/figure-html/G9.png" width="800"></p>
+<p><b>Análisis</b></p>
+<p>
+  Los datos obtenidos revelan que la mayoría de los encuestados (56%) se siente satisfecha con las aplicaciones de recordatorios que utilizan actualmente. Esto indica un mercado altamente competitivo e insta a incluir un elemento diferenciador en la aplicación en desarrollo. Otra opción podría ser aprovechar la postura neutral del 34.7% para elaborar una estrategia que los convenza de utilizar la aplicación en desarrollo, aumentando su uso y difusión. Además, es fundamental considerar estrategias de marketing efectivas para destacar los aspectos distintivos de la nueva aplicación en un mercado ya establecido.
+</p>
+</div>
+<div id="pregunta15" class="section level2">
+<h2>P10. ¿Qué aspectos le gustaría que mejoraran en las aplicaciones de recordatorio actuales?<a name="p15"></a></h2>
+<p><b>Tabla</b></p>
+<p><img src="survey_files/figure-html/T10.png" width="800"></p>
+<p><b>Gráfico</b></p>
+<p><img src="survey_files/figure-html/G10.png" width="800"></p>
+<p><b>Análisis</b></p>
+<p>
+  Los encuestados han revelado funcionalidades adicionales que les gustaría incluir en sus aplicaciones de recordatorio actuales. Esto se puede aprovechar para establecer un elemento diferenciador entre las aplicaciones existentes y la aplicación en desarrollo. Estas son: mayor estabilidad y menos errores, mayor flexibilidad en la personalización de recordatorios y añadir más opciones de categorización de tareas. Las opciones siguen enmarcándose en la configuración y personalización, aspectos clave para mejorar la experiencia del usuario.
+</p>
+</div>
+</div>
+</div>
+<br><br>
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2023 Copyright:ADAMARIS VILLAVICENCIO  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+</html>
